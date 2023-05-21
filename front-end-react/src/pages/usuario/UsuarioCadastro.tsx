@@ -13,6 +13,7 @@ export const UsuarioCadastro = () => {
         e.preventDefault();
 
         const data = createFormInput("#formUsuario");
+        console.log(data);
 
 
     }
@@ -96,11 +97,12 @@ export const UsuarioCadastro = () => {
 
                     </div>
 
-                    <input type="text" id="nome" defaultValue={""} />
-                    <input type="text" id="usuario" defaultValue={""} />
-                    <input type="submit" />
+
+                   
                     <div>
-                        <button type="button" onClick={returnPage} >VOLTAR</button>
+                    <button className="btn btn-outline-primary btn-sm" style={{margin : "0.5rem"}} type="submit" form="formUsuario"  >SALVAR</button>
+                  
+                        <button className="btn btn-outline-danger btn-sm" type="button" onClick={returnPage} >VOLTAR</button>
 
 
                     </div>

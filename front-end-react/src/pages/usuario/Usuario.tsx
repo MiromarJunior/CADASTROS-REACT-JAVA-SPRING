@@ -4,30 +4,51 @@ import { getApiBack } from "./usuarioService"
 import { IconButton, Paper } from "@mui/material";
 import { dataBR } from "../../services/utilServices";
 import { ButtonDel, ButtonEdit } from "../../services/ButtonService";
+import { Link, useNavigate } from "react-router-dom";
+import { UsuarioCadastro } from "./UsuarioCadastro";
 
 
 export const Usuario = () => {
-
+    const navigate = useNavigate();
     const [rows, setRows] = useState<UsuarioModel[] | null>();
+
 
     useEffect(() => {
         const busca = async () => {
-            const valor = await getApiBack({}, 'usuario',setRows);
-            console.log(valor)
-           
+             await getApiBack({}, 'usuario', setRows);
+            //console.log(valor)
+
         }
-        busca();
+      
+            busca();
+      
 
     }, [])
 
-    console.log(rows)
+   
+    const [usuario,setUsuario] = useState<UsuarioModel | null>();
+
+    const alteraUsuario = (lista: UsuarioModel | null) => {    
+        navigate("/usuarioCadastro",{state:{lista}})
+
+         
+
+
+    }
+
+
+
+
+
+   
     return (
         <div>
+            <div >
             <h1 className="titulo" >USUÁRIO</h1>
             <div className="centralizaDiv" >
-                <Paper sx={{width :"80%"}} >
+                <Paper sx={{ width: "80%" }} >
 
-                    <table  className="  table table-hover table-sm  table-bordered">
+                    <table className="  table table-hover table-sm  table-bordered">
                         <thead>
                             <tr>
                                 <th>AÇÃO</th>
@@ -44,11 +65,11 @@ export const Usuario = () => {
                                 <tr key={l.usuarioId}>
                                     <td align="center">
 
-                                        <IconButton className="iconButtonEdit">
+                                        <IconButton onClick={() => alteraUsuario(l)} className="iconButtonEdit">
                                             <ButtonEdit />
                                         </IconButton>
                                         <IconButton className="iconButtonEdit">
-<ButtonDel/>
+                                            <ButtonDel />
                                         </IconButton>
 
 
@@ -66,7 +87,9 @@ export const Usuario = () => {
                     </table>
                 </Paper>
             </div>
+            </div>
 
+   
 
 
         </div>

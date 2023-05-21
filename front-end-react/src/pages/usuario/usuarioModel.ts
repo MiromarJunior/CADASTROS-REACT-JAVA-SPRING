@@ -3,11 +3,11 @@ export interface UsuarioModel {
   usroNome: string;
   usroUsuario: string;
   usroBairro: string;
-  usroCelular1: number;
-  usroCelular2: number;
+  usroCelular1: string;
+  usroCelular2: string;
   usroCidade: string;
   usroComplemento: string;
-  usroCpf: number;
+  usroCpf: string;
   usroDtAtualizacao: string;
   usroDtCadastro: string;
   usroDtNascimento: string;

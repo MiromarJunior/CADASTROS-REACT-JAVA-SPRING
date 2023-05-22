@@ -4,8 +4,7 @@ import { getApiBack } from "./usuarioService"
 import { IconButton, Paper } from "@mui/material";
 import { dataBR } from "../../services/utilServices";
 import { ButtonDel, ButtonEdit } from "../../services/ButtonService";
-import { Link, useNavigate } from "react-router-dom";
-import { UsuarioCadastro } from "./UsuarioCadastro";
+import { useNavigate } from "react-router-dom";
 
 
 export const Usuario = () => {
@@ -26,7 +25,7 @@ export const Usuario = () => {
     }, [])
 
    
-    const [usuario,setUsuario] = useState<UsuarioModel | null>();
+  
 
     const alteraUsuario = (lista: UsuarioModel | null) => {    
         navigate("/usuarioCadastro",{state:{lista}})

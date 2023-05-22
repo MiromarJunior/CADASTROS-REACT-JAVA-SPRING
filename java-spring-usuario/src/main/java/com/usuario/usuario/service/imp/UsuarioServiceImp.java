@@ -1,29 +1,21 @@
 package com.usuario.usuario.service.imp;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.usuario.usuario.model.Usuario;
 import com.usuario.usuario.model.dto.UsuarioDTO;
 import com.usuario.usuario.model.dto.UsuarioDTOTeste;
 import com.usuario.usuario.model.dto.UsuarioDTOUpdate;
 import com.usuario.usuario.repository.UsuarioRepository;
 import com.usuario.usuario.service.UsuarioService;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioServiceImp implements UsuarioService {

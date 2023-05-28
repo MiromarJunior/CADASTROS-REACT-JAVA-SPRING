@@ -58,6 +58,9 @@ public class Usuario {
 
     @Column(length = 2)
     private String usroUF;
+
+    @Column(length = 8)
+    private String usroCep;
   
     private LocalDate usroDtNascimento;
 

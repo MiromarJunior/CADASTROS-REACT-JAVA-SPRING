@@ -53,17 +53,29 @@ public class UsuarioServiceImp implements UsuarioService {
    
     @Override
     public Usuario saveUsuario(UsuarioDTO dto) {
-       Usuario usu = new Usuario();
+      
        validaCpf(dto.getUsroCpf());    
-       validaUsuario(dto.getUsroUsuario());       
-
+       validaUsuario(dto.getUsroUsuario());     
+       
+       Usuario usu = new Usuario();
         usu.setUsroNome(dto.getUsroNome());
         usu.setUsroUsuario(dto.getUsroUsuario());
         usu.setUsroEmail(dto.getUsroEmail());
-        usu.setUsroCpf(dto.getUsroCpf());
+        usu.setUsroCpf(apenasNumeros(dto.getUsroCpf()));
         usu.setUsroDtNascimento(dto.getUsroDtNascimento());
         usu.setUsroCelular1( apenasNumeros(dto.getUsroCelular1()));
         usu.setUsroDtCadastro(LocalDateTime.now());
+        usu.setUsroCelular2(apenasNumeros(dto.getUsroCelular2()));
+        usu.setUsroWhatsapp(apenasNumeros(dto.getUsroWhatsapp()));
+        usu.setUsroLogradouro(dto.getUsroLogradouro());
+        usu.setUsroLogradouroNr(dto.getUsroLogradouroNr());
+        usu.setUsroComplemento(dto.getUsroComplemento());
+        usu.setUsroBairro(dto.getUsroBairro());
+        usu.setUsroCidade(dto.getUsroCidade());
+        usu.setUsroUF(dto.getUsroUF());
+        usu.setUsroCep(apenasNumeros(dto.getUsroCep()));
+
+
         usuRepo.save(usu);
         return usu;
     }

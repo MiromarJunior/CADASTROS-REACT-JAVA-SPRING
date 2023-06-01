@@ -1,6 +1,7 @@
 package com.projeto.empresa.backendjava.pessoa.pessoaFisica.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaDTO;
 import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaSimplesDTO;
@@ -20,6 +21,8 @@ public interface PessoaFisicaService {
     PessoaFisica createPessoaFisica(PessoaFisicaDTO dto);
 
     PessoaFisica updatePessoaFisica(Long id, PessoaFisicaUpdateDTO dto);
+
+    Map<String, Object> deletePessoaFisica(Long id);
 
   
     

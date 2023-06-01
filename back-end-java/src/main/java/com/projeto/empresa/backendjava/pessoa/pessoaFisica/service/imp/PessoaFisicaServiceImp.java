@@ -1,7 +1,9 @@
 package com.projeto.empresa.backendjava.pessoa.pessoaFisica.service.imp;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +95,15 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
            throw new ResponseStatusException(HttpStatus.CONFLICT,
             "Erro ao Cadastrar ou Atualizar Pessoa - CPF já Cadastrado: ");
         }
+    }
+
+    @Override
+    public Map<String, Object> deletePessoaFisica(Long id) {
+        getPessoaFisicaById(id);
+        repository.deleteById(id);
+        Map<String, Object> resposta = new HashMap<>();
+        resposta.put("mensagem", "Aluno Excluído com Sucesso!");
+       return resposta;
     }
 
 }

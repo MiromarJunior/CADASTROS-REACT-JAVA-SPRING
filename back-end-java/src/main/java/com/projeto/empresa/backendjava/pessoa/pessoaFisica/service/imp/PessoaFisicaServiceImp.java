@@ -24,6 +24,15 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
     @Autowired
     private PessoaFisicaRepository repository;
 
+    private String apenasNumeros(String value){
+        if(value != null){
+            return value.replaceAll("\\D+", "");
+        }else{
+            return value;
+        }
+
+    }
+
     @Override
     public List<PessoaFisicaSimplesDTO> getSimpleDTO() {
         List<PessoaFisica> pessoas = repository.findAll();
@@ -32,7 +41,7 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
                     PessoaFisicaSimplesDTO dto = new PessoaFisicaSimplesDTO();
                     dto.setPessoaNome(pessoa.getPessoaNome());
                     dto.setPessoaEmail(pessoa.getPessoaEmail());
-                    dto.setPessoaCpf(pessoa.getPessoaCpf());
+                    dto.setPessoaCpf(apenasNumeros(pessoa.getPessoaCpf()));
                     dto.setPessoaDtCadastro(pessoa.getPessoaDtCadastro());
                     return dto;
                 }).collect(Collectors.toList());
@@ -47,7 +56,7 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
         pessoa.setPessoaNome(dto.getPessoaNome());
         pessoa.setPessoaCpf(dto.getPessoaCpf());
         pessoa.setPessoaDtNascimento(dto.getPessoaDtNascimento());
-        pessoa.setPessoaFoneCelular(dto.getPessoaFoneCelular());
+        pessoa.setPessoaFoneCelular( apenasNumeros(dto.getPessoaFoneCelular()));
         pessoa.setPessoaEmail(dto.getPessoaEmail());
         pessoa.setPessoaDtCadastro(LocalDateTime.now());
         return repository.save(pessoa);
@@ -74,13 +83,13 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
         pessoa.setPessoaFisicaId(id);
         pessoa.setPessoaNome(dto.getPessoaNome());
         pessoa.setPessoaDtNascimento(dto.getPessoaDtNascimento());
-        pessoa.setPessoaFoneCelular(dto.getPessoaFoneCelular());
+        pessoa.setPessoaFoneCelular(apenasNumeros(dto.getPessoaFoneCelular()));
         pessoa.setPessoaEmail(dto.getPessoaEmail());    
         pessoa.setPessoaDtAtualizacao(LocalDateTime.now());
         pessoa.setPessoaBairro(dto.getPessoaBairro());
-        pessoa.setPessoaCep(dto.getPessoaCep());
+        pessoa.setPessoaCep(apenasNumeros(dto.getPessoaCep()));
         pessoa.setPessoaCidade(dto.getPessoaCidade());
-        pessoa.setPessoaFoneFixo(dto.getPessoaFoneFixo());
+        pessoa.setPessoaFoneFixo(apenasNumeros(dto.getPessoaFoneFixo()));
         pessoa.setPessoaLogradouro(dto.getPessoaLogradouro());
         pessoa.setPessoaLogradouroNr(dto.getPessoaLogradouroNr());
         pessoa.setPessoaUf(dto.getPessoaUf());

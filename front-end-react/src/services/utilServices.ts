@@ -10,18 +10,6 @@ import Swal from 'sweetalert2';
 // }
 export const dataBR = (data: string) => {
     return data?.split("-").reverse().join("/");
-    // const dataFormat = new Date(data);
-    // console.log(data);
-
-    // const dataBrFormatada = (
-    //     dataFormat.getUTCDate().toString().padStart(2, "0")
-    //     + "/" +
-    //     (dataFormat.getMonth() + 1).toString().padStart(2, "0")
-    //     + "/" +
-    //     dataFormat.getFullYear().toString()
-
-    // );
-    // return dataBrFormatada;
 };
 
 export const dataBRCompleta = (data: string) => {
@@ -164,16 +152,13 @@ export const estadosBR:string[] =
 
 
   export const mostrarAlerta = async(msg:string, error:boolean) => {
-    let icone = (error === true ? "error" : "success");
+  
     let tempo = (error === true ? 60000 : 3000);
     let botao = (error === true ? true : false);
     return (
     await  Swal.fire({
-        background: "rgb(218, 244, 235)",
-        // background : "rgb(171, 239, 191)",
-        position: 'center',
-       
-        // icon: icone,
+        background: "rgb(218, 244, 235)",   
+        position: 'center',      
         toast: true,
         width: "30em",
         title: msg,

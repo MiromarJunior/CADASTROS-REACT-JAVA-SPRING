@@ -1,34 +1,15 @@
 import { useEffect, useState } from "react"
-import { getApiBack } from "../../services/crudService";
+import { deleteApiBack, getApiBack } from "../../services/crudService";
 import { PessoaFisicaModel } from "./PessoaFisicaModel";
 import { ColumnTable, TableSimple } from "../../components/table/TableSimple";
-import { dataBR, formataCelular } from "../../services/utilServices";
+import { confirmaDel, dataBR, formataCelular } from "../../services/utilServices";
 
 
 
 import { ButtonDel, ButtonEdit } from "../../components/buttons/ButtonAction";
 
 
-const tableColumnFormat = (rowSelExt:PessoaFisicaModel[]) => {
-  
-    if (rowSelExt.length > 0) {
-        rowSelExt.forEach((rowSel)=>{       
-            rowSel.pessoaDtNascForm = dataBR(rowSel.pessoaDtNascimento);    
-            rowSel.pessoaFoneCelularForm = formataCelular(rowSel.pessoaFoneCelular);
-            rowSel.alteracao = (
-                <div style={{display : "flex", textAlign : "center"}}>
-                    <ButtonEdit />
-                    <ButtonDel/>
 
-
-                </div>
-            )
-            
-        })
-
-    }
-
-}
 export const PessoaFisica = () =>{
 
     const [rows,setRows] = useState<PessoaFisicaModel[]>([]);
@@ -41,6 +22,18 @@ export const PessoaFisica = () =>{
         buscaPessoa();
     },[]);
 
+    const deletePessoa = (pessoaId:number)=>{
+        confirmaDel().then((response)=>{
+            if(response.isConfirmed){
+                deleteApiBack(pessoaId,"pessoa").then((resp)=>{
+                    if(resp === true){
+                        buscaPessoa();
+                    }
+                })
+            }
+        })
+    }
+
     const columns:ColumnTable[] = ([
       
         {id:0,value:"pessoaNome",title:"NOME", width:"",alignTitle:"",align:""},
@@ -49,8 +42,26 @@ export const PessoaFisica = () =>{
         {id:3,value:"pessoaFoneCelularForm",title:"CELULAR", width:"",alignTitle:"",align:""},
         {id:4,value:"alteracao",title:"ALTERAÇÃO", width:"50",alignTitle:"",align:""},
     ]);
-
-
+    const tableColumnFormat = (rowSelExt:PessoaFisicaModel[]) => {
+  
+        if (rowSelExt.length > 0) {
+            rowSelExt.forEach((rowSel)=>{       
+                rowSel.pessoaDtNascForm = dataBR(rowSel.pessoaDtNascimento);    
+                rowSel.pessoaFoneCelularForm = formataCelular(rowSel.pessoaFoneCelular);
+                rowSel.alteracao = (
+                    <div style={{display : "flex", textAlign : "center"}}>
+                        <ButtonEdit />
+                        <ButtonDel deleteFunction={deletePessoa} deleteParam={rowSel.pessoaFisicaId}/>
+    
+    
+                    </div>
+                )
+                
+            })
+    
+        }
+    
+    }
 
 
 

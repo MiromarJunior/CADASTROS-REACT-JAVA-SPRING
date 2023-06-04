@@ -54,7 +54,7 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
         
         PessoaFisica pessoa = new PessoaFisica();
         pessoa.setPessoaNome(dto.getPessoaNome());
-        pessoa.setPessoaCpf(dto.getPessoaCpf());
+        pessoa.setPessoaCpf(apenasNumeros(dto.getPessoaCpf()));
         pessoa.setPessoaDtNascimento(dto.getPessoaDtNascimento());
         pessoa.setPessoaFoneCelular( apenasNumeros(dto.getPessoaFoneCelular()));
         pessoa.setPessoaEmail(dto.getPessoaEmail());

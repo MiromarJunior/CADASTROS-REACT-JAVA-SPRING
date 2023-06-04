@@ -49,7 +49,9 @@ export const putApiBack =  async(id:number,data:object,uri:string) =>{
 }
 
 export const deleteApiBack =  async(id:number,uri:string) =>{
-    return await axios.delete(`${baseURL}${uri}/${id}`).then((res)=>{      
+    return await axios.delete(`${baseURL}${uri}/${id}`).then((res)=>{    
+      
+        mostrarAlerta("Registro Excluído com Sucesso!",false);
        return true;    
     }).catch((error)=>{
         console.log(error);

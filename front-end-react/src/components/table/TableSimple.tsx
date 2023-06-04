@@ -94,7 +94,7 @@ export const TableSimple = ({ columns, rows,tableColumnFormat }: TableSimpleProp
                                 <tr key={l.pessoaFisicaId}>
                                     {columns.map((k) =>
                                         <td width={k.width} align={k.align}  key={k.id} >
-                                            <p style={{marginLeft :"2px"}} > {l[k.value]}</p>
+                                            <div style={{marginLeft :"2px"}} > {l[k.value]}</div>
                                            
                                           
                                             </td>

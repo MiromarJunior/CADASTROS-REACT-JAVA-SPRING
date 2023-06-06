@@ -1,4 +1,4 @@
-package com.projeto.empresa.backendjava.pessoa.pessoaFisica.controller;
+package com.projeto.empresa.backendjava.pessoa.pessoafisica.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaUpdateDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.model.PessoaFisica;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.service.imp.PessoaFisicaServiceImp;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaUpdateDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.model.PessoaFisica;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.service.imp.PessoaFisicaServiceImp;
 
 import jakarta.validation.Valid;
 

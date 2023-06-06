@@ -1,12 +1,12 @@
-package com.projeto.empresa.backendjava.pessoa.pessoaFisica.service;
+package com.projeto.empresa.backendjava.pessoa.pessoafisica.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaSimplesDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaUpdateDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.model.PessoaFisica;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaSimplesDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaUpdateDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.model.PessoaFisica;
 
 public interface PessoaFisicaService {
 

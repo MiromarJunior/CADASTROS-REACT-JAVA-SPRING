@@ -1,4 +1,4 @@
-package com.projeto.empresa.backendjava.pessoa.pessoaFisica.model;
+package com.projeto.empresa.backendjava.pessoa.pessoafisica.model;
 
 import java.time.LocalDate;
 

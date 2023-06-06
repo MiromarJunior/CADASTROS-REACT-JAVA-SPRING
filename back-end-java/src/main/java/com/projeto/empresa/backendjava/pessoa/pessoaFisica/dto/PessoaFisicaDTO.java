@@ -1,4 +1,4 @@
-package com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto;
+package com.projeto.empresa.backendjava.pessoa.pessoafisica.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

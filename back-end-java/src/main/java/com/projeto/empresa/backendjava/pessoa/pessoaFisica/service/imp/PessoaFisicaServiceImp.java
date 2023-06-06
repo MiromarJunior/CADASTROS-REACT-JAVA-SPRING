@@ -1,4 +1,4 @@
-package com.projeto.empresa.backendjava.pessoa.pessoaFisica.service.imp;
+package com.projeto.empresa.backendjava.pessoa.pessoafisica.service.imp;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaSimplesDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.dto.PessoaFisicaUpdateDTO;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.model.PessoaFisica;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.repository.PessoaFisicaRepository;
-import com.projeto.empresa.backendjava.pessoa.pessoaFisica.service.PessoaFisicaService;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaSimplesDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaUpdateDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.model.PessoaFisica;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.repository.PessoaFisicaRepository;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.service.PessoaFisicaService;
 
 @Service
 public class PessoaFisicaServiceImp implements PessoaFisicaService {

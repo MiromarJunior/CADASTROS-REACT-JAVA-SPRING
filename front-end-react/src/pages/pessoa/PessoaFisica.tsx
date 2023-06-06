@@ -73,7 +73,7 @@ export const PessoaFisica = () =>{
 <h1 className="titulo" >LISTA DE USUÁRIOS</h1>
 
             <div>
-                <TableSimple columns={columns} rows={rows} tableColumnFormat={tableColumnFormat}/>
+                <TableSimple rowId={"pessoaFisicaId"} columns={columns} rows={rows} tableColumnFormat={tableColumnFormat}/>
             </div>
 
         </div>

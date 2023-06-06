@@ -15,10 +15,11 @@ export interface ColumnTable {
 interface TableSimpleProps {
     columns: ColumnTable[];
     rows: any;
+    rowId:string;
     tableColumnFormat:(value:any) => void;
 }
 
-export const TableSimple = ({ columns, rows,tableColumnFormat }: TableSimpleProps) => {
+export const TableSimple = ({ columns, rows,tableColumnFormat,rowId }: TableSimpleProps) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [searchValue, setSearchValue] = useState('');
@@ -82,21 +83,19 @@ export const TableSimple = ({ columns, rows,tableColumnFormat }: TableSimpleProp
                                     </th>
                             )}
                         </tr>
-
-
                     </thead>
+
                     <tbody>
 
                         {((rowsChange.length === 0 && searchValue === "") ? rows : rowsChange)
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((l: any) =>
 
-                                <tr key={l.pessoaFisicaId}>
+                                <tr key={l[rowId]}>
                                     {columns.map((k) =>
                                         <td width={k.width} align={k.align}  key={k.id} >
                                             <div style={{marginLeft :"2px"}} > {l[k.value]}</div>
-                                           
-                                          
+                                                                                    
                                             </td>
                                     )}
                                 </tr>
@@ -111,18 +110,11 @@ export const TableSimple = ({ columns, rows,tableColumnFormat }: TableSimpleProp
                     rowsPerPage={rowsPerPage}
                     page={page}
                     labelRowsPerPage={"Registros por Página" + (searchValue !== "" ? " Filtrado" : "")}
-
-                    
-                     onPageChange={handleChangePage}
+                    onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
                 </Paper>
             </div>
-
-
-
-
-
         </div>
     )
 }

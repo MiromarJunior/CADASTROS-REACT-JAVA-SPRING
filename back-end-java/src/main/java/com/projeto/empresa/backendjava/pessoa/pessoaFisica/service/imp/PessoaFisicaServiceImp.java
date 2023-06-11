@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaUpdat
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.model.PessoaFisica;
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.repository.PessoaFisicaRepository;
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.service.PessoaFisicaService;
+
 
 @Service
 public class PessoaFisicaServiceImp implements PessoaFisicaService {
@@ -37,27 +40,19 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
     public List<PessoaFisicaSimplesDTO> getSimpleDTO() {
         List<PessoaFisica> pessoas = repository.findAll();
         return pessoas.stream()
-                .map(pessoa -> {
-                    PessoaFisicaSimplesDTO dto = new PessoaFisicaSimplesDTO();
-                    dto.setPessoaNome(pessoa.getPessoaNome());
-                    dto.setPessoaEmail(pessoa.getPessoaEmail());
-                    dto.setPessoaCpf(apenasNumeros(pessoa.getPessoaCpf()));
-                    dto.setPessoaDtCadastro(pessoa.getPessoaDtCadastro());
-                    return dto;
-                }).collect(Collectors.toList());
-
-    }
+                .map(pessoa -> new PessoaFisicaSimplesDTO(pessoa))
+                .collect(Collectors.toList());
+            
+            }
 
     @Override
     public PessoaFisica createPessoaFisica(PessoaFisicaDTO dto) {
         validaCpf(dto.getPessoaCpf());
-        
+      
         PessoaFisica pessoa = new PessoaFisica();
-        pessoa.setPessoaNome(dto.getPessoaNome());
-        pessoa.setPessoaCpf(apenasNumeros(dto.getPessoaCpf()));
-        pessoa.setPessoaDtNascimento(dto.getPessoaDtNascimento());
-        pessoa.setPessoaFoneCelular( apenasNumeros(dto.getPessoaFoneCelular()));
-        pessoa.setPessoaEmail(dto.getPessoaEmail());
+        BeanUtils.copyProperties(dto, pessoa,"pessoaCpf","pessoaFonecelular","pessoaDtCadastro");       
+        pessoa.setPessoaCpf(apenasNumeros(dto.getPessoaCpf()));      
+        pessoa.setPessoaFoneCelular(apenasNumeros(dto.getPessoaFoneCelular()));      
         pessoa.setPessoaDtCadastro(LocalDateTime.now());
         return repository.save(pessoa);
 
@@ -78,21 +73,21 @@ public class PessoaFisicaServiceImp implements PessoaFisicaService {
     @Override
     public PessoaFisica updatePessoaFisica(Long id,PessoaFisicaUpdateDTO dto) {
        
+        
         PessoaFisica pessoa = getPessoaFisicaById(id);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(dto, pessoa);
 
         pessoa.setPessoaFisicaId(id);
-        pessoa.setPessoaNome(dto.getPessoaNome());
-        pessoa.setPessoaDtNascimento(dto.getPessoaDtNascimento());
+
         pessoa.setPessoaFoneCelular(apenasNumeros(dto.getPessoaFoneCelular()));
-        pessoa.setPessoaEmail(dto.getPessoaEmail());    
+       
         pessoa.setPessoaDtAtualizacao(LocalDateTime.now());
-        pessoa.setPessoaBairro(dto.getPessoaBairro());
+       
         pessoa.setPessoaCep(apenasNumeros(dto.getPessoaCep()));
-        pessoa.setPessoaCidade(dto.getPessoaCidade());
+      
         pessoa.setPessoaFoneFixo(apenasNumeros(dto.getPessoaFoneFixo()));
-        pessoa.setPessoaLogradouro(dto.getPessoaLogradouro());
-        pessoa.setPessoaLogradouroNr(dto.getPessoaLogradouroNr());
-        pessoa.setPessoaUf(dto.getPessoaUf());
+
    
         return repository.save(pessoa);
     }

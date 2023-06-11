@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaDTO;
+import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaSimplesDTO;
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.dto.PessoaFisicaUpdateDTO;
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.model.PessoaFisica;
 import com.projeto.empresa.backendjava.pessoa.pessoafisica.service.imp.PessoaFisicaServiceImp;
@@ -35,6 +36,12 @@ public class PessoaFisicaController {
     @GetMapping
     public ResponseEntity<List<PessoaFisica>> getAll(){
         List<PessoaFisica> pessoas = service.getAllPessoaFisica();
+        return new ResponseEntity<>(pessoas, HttpStatus.OK);
+    }
+
+    @GetMapping("/pessoaSimples")
+    public ResponseEntity<List<PessoaFisicaSimplesDTO>> getAllSimples(){
+        List<PessoaFisicaSimplesDTO> pessoas = service.getSimpleDTO();
         return new ResponseEntity<>(pessoas, HttpStatus.OK);
     }
 

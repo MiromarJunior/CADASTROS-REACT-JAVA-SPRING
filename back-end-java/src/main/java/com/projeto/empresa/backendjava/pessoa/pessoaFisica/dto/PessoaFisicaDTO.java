@@ -1,5 +1,6 @@
 package com.projeto.empresa.backendjava.pessoa.pessoafisica.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

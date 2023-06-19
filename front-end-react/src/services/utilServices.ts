@@ -109,6 +109,7 @@ export const formataCelular = (value:string | undefined) => {
 
 export const validaCelular = (id:string)=>{
   const inputCelular = document.getElementById(id)  as HTMLInputElement; 
+  if(!inputCelular?.value)return "";
     if(inputCelular.value.length <= 15){
       inputCelular.value = formataCelular(inputCelular.value);       
      
@@ -119,7 +120,61 @@ export const validaCelular = (id:string)=>{
       }
       
    }    
+   
 }
+
+export const apenasNr = (id:string) => {
+  const nr = document.getElementById(id)  as HTMLInputElement; 
+
+  if(!nr?.value)return "";
+ nr.value = nr?.value.replace(/\D/g, '');
+ 
+
+};
+
+ interface CepProps{
+idCep:string;
+idUF:string;
+idCidade:string;
+idBairro:string;
+idLogradouro:string;
+}
+
+export const buscaCepOnline = async ({idCep,idUF,idCidade,idBairro,idLogradouro}:CepProps) => {
+  const inputCep = document.getElementById(idCep) as HTMLInputElement; 
+  const inputUF = document.getElementById(idUF) as HTMLInputElement; 
+  const inputCidade = document.getElementById(idCidade) as HTMLInputElement; 
+  const inputBairro = document.getElementById(idBairro) as HTMLInputElement; 
+  const inputLogradouro = document.getElementById(idLogradouro) as HTMLInputElement; 
+
+  if(!inputCep)return "";
+
+  const cep = inputCep.value;
+  
+  if ((cep).toString().length === 8) {
+      await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(res => res.json()).then(data => {
+              if (data.erro) {                       
+                  return mostrarAlerta("CEP não encontrado", true)
+              } else {
+                inputUF.value = data.uf;
+                inputCidade.value = data.localidade;
+                inputBairro.value = data.bairro;
+                inputLogradouro.value = data.logradouro;
+
+              }
+          }).catch((error) => {
+              console.error(error);
+              if (error.code === "ERR_NETWORK") return mostrarAlerta("Erro ao conectar com Servidor", true);
+              mostrarAlerta(error.response.data, true).catch(error=> console.error(error));
+          });
+  } else {
+      mostrarAlerta("CEP inválido!", true).catch(error=> console.error(error));
+  }
+
+}
+
+
 /** 
 export const formataFoneFixo = (value) => {
 

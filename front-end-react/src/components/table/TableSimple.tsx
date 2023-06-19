@@ -1,6 +1,8 @@
 import { Paper, TextField,TablePagination} from '@mui/material';
 
 import { useState } from "react";
+import "./TableSimple.css";
+import { ButtonAdd } from '../buttons/ButtonAction';
 
 export interface ColumnTable {
     id: number;
@@ -16,10 +18,11 @@ interface TableSimpleProps {
     columns: ColumnTable[];
     rows: any;
     rowId:string;
+    saveRow: ()=>void;
     tableColumnFormat:(value:any) => void;
 }
 
-export const TableSimple = ({ columns, rows,tableColumnFormat,rowId }: TableSimpleProps) => {
+export const TableSimple = ({saveRow, columns, rows,tableColumnFormat,rowId }: TableSimpleProps) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [searchValue, setSearchValue] = useState('');
@@ -57,9 +60,12 @@ export const TableSimple = ({ columns, rows,tableColumnFormat,rowId }: TableSimp
     tableColumnFormat(rows)
     return (
         <div className='container-fluid' style={{marginTop :"20px"}}>
-
+    <Paper>
             <div className="table-responsive-sm">
-                <Paper>
+                <div  style={{ float: "left", margin :"0.5rem"}}>
+                <ButtonAdd saveFunction={saveRow} />
+                </div>
+            
 
                 <div  style={{ float: "right" }}>
                     <TextField
@@ -72,7 +78,7 @@ export const TableSimple = ({ columns, rows,tableColumnFormat,rowId }: TableSimp
                         }} />
 
                 </div>
-                <table className="table table-hover table-sm table-bordered " >
+                <table className="table table-hover table-sm table-bordered table-container " >
                     <thead  >
                         <tr >
                             {columns.map((l) =>
@@ -113,8 +119,9 @@ export const TableSimple = ({ columns, rows,tableColumnFormat,rowId }: TableSimp
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-                </Paper>
+               
             </div>
+            </Paper>
         </div>
     )
 }

@@ -1,22 +1,36 @@
 import { IconButton } from "@mui/material"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { PessoaFisicaModel } from "../../pages/pessoa/PessoaFisicaModel";
 
-interface ButtonProps{
+interface ButtonDeleteProps{
     
     deleteFunction: (value: number) => void;
     deleteParam: number;
-}
 
-export const ButtonEdit =()=>{
+}
+interface ButtonEditProps {
+    updateFunction: (param: PessoaFisicaModel) => void;
+    updateParam: PessoaFisicaModel;
+  }
+
+  interface ButtonAddProps {
+    saveFunction: () => void;
+   
+  }
+
+export const ButtonEdit =({ updateFunction, updateParam }:ButtonEditProps)=>{
     return(
-        <IconButton title="Alterar Registro" style={{ marginLeft : "0.5rem",marginRight :"0.5rem",  color:"green"}}>
+        <IconButton title="Alterar Registro" 
+        onClick={()=>updateFunction(updateParam)}
+        style={{ marginLeft : "0.5rem",marginRight :"0.5rem",  color:"green"}}>
         <EditIcon/>
     </IconButton>
     )
 }
 
-export const ButtonDel =({deleteFunction, deleteParam}:ButtonProps)=>{
+export const ButtonDel =({deleteFunction, deleteParam}:ButtonDeleteProps)=>{
     return(
         <IconButton onClick={()=>deleteFunction(deleteParam)}
         title="Excluir Registro" style={{marginLeft : "0.5rem",marginRight :"0.5rem",  color:"red"}}>
@@ -24,3 +38,14 @@ export const ButtonDel =({deleteFunction, deleteParam}:ButtonProps)=>{
     </IconButton>
     )
 }
+
+export const ButtonAdd =({saveFunction}:ButtonAddProps)=>{
+    return(
+        <IconButton title="Novo Registro" 
+        onClick={saveFunction}
+        style={{  marginLeft : "0.5rem",marginRight :"0.5rem",  color:"blue", padding :0}}>
+        <AddCircleIcon fontSize="large" />
+    </IconButton>
+    )
+}
+

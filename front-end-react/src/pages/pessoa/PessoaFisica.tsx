@@ -7,10 +7,12 @@ import { confirmaDel, dataBR, formataCelular } from "../../services/utilServices
 
 
 import { ButtonDel, ButtonEdit } from "../../components/buttons/ButtonAction";
+import { useNavigate } from "react-router-dom";
 
 
 
 export const PessoaFisica = () =>{
+    const navigate = useNavigate();
 
     const [rows,setRows] = useState<PessoaFisicaModel[]>([]);
 
@@ -22,16 +24,33 @@ export const PessoaFisica = () =>{
         buscaPessoa();
     },[]);
 
+
+    const updatePessoaFisica = (lista: PessoaFisicaModel) => {     
+      
+      delete lista.alteracao;
+        navigate("/cadastroPessoaFisica",{state:{lista}})
+      
+    }
+
+    const savePessoaFisica = () => {     
+        navigate("/cadastroPessoaFisica",{state:{lista : null}});      
+    }
+
+
+
+
+
+
     const deletePessoa = (pessoaId:number)=>{
         confirmaDel().then((response)=>{
             if(response.isConfirmed){
                 deleteApiBack(pessoaId,"pessoa").then((resp)=>{
                     if(resp === true){
-                        buscaPessoa();
+                       buscaPessoa();
                     }
-                })
+                }).catch(error=>console.error(error));
             }
-        })
+        }).catch(error=>console.error(error));
     }
 
     const columns:ColumnTable[] = ([
@@ -50,7 +69,7 @@ export const PessoaFisica = () =>{
                 rowSel.pessoaFoneCelularForm = formataCelular(rowSel.pessoaFoneCelular);
                 rowSel.alteracao = (
                     <div style={{display : "flex", textAlign : "center"}}>
-                        <ButtonEdit />
+                        <ButtonEdit  updateFunction={updatePessoaFisica} updateParam={rowSel} />
                         <ButtonDel deleteFunction={deletePessoa} deleteParam={rowSel.pessoaFisicaId}/>
     
     
@@ -65,15 +84,13 @@ export const PessoaFisica = () =>{
 
 
 
-    console.log(rows);
-
     return(
         <div>
 
 <h1 className="titulo" >LISTA DE USUÁRIOS</h1>
 
             <div>
-                <TableSimple rowId={"pessoaFisicaId"} columns={columns} rows={rows} tableColumnFormat={tableColumnFormat}/>
+                <TableSimple saveRow={savePessoaFisica} rowId={"pessoaFisicaId"} columns={columns} rows={rows} tableColumnFormat={tableColumnFormat}/>
             </div>
 
         </div>

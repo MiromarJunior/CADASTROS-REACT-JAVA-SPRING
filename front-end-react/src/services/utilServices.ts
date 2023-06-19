@@ -157,6 +157,7 @@ export const buscaCepOnline = async ({idCep,idUF,idCidade,idBairro,idLogradouro}
               if (data.erro) {                       
                   return mostrarAlerta("CEP não encontrado", true)
               } else {
+                console.log(data);
                 inputUF.value = data.uf;
                 inputCidade.value = data.localidade;
                 inputBairro.value = data.bairro;

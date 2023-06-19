@@ -54,7 +54,7 @@ export const CadastroPessoaFisica = () => {
         }).catch(error => console.error(error));
     }
 
-
+console.log(lista)
 
     return (
         <>
@@ -134,16 +134,18 @@ export const CadastroPessoaFisica = () => {
                             sx={{ margin: "0.5rem" }}
 
                         />
-                        <div  >
-                        <button onClick={buscaCep} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem" }} type="button"   >BUSCA CEP</button>
-                        <br />
+                       
+                        <button onClick={buscaCep} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem" ,maxWidth :"10rem"}} type="button"   >BUSCA CEP</button>
+                      
                         </div>
+                        <div className="formContainer">
 
                         <TextField id="pessoaLogradouro" defaultValue={lista?.pessoaLogradouro}
                             label="Logradouro"
+                            color="info"
                             variant="outlined" InputLabelProps={{ shrink: true }}
                             inputProps={{ maxLength: 150 }}
-                            sx={{ margin: "0.5rem", minWidth: "20rem" }}
+                            sx={{ margin: "0.5rem", }}
 
                         />
 
@@ -152,7 +154,7 @@ export const CadastroPessoaFisica = () => {
                             label="Nr"
                             variant="outlined" InputLabelProps={{ shrink: true }}
                             inputProps={{ maxLength: 7 }}
-                            sx={{ margin: "0.5rem", maxWidth: "5rem" }}
+                            sx={{ margin: "0.5rem" }}
                         />
 
 
@@ -192,7 +194,7 @@ export const CadastroPessoaFisica = () => {
                             sx={{ margin: "0.5rem", minWidth: "5rem" }}>
                             <option value={""}></option>
                             {estadosBR.map((l) =>
-                                <option key={l} value={lista?.pessoaUf}>{l}</option>
+                                <option key={l} value={l}>{l}</option>
                             )}
 
                         </TextField>

@@ -38,7 +38,7 @@ p{
   }
   
   .formContainer > * {
-    flex-basis: 80%; /* Largura total padrão para dispositivos móveis */
+    flex-basis: 95%; /* Largura total padrão para dispositivos móveis */
     margin: 0.5rem;
   }
   
@@ -47,4 +47,6 @@ p{
       flex-basis: 30%; /* Largura de 50% em PCs */
     }
   }
+
+
   

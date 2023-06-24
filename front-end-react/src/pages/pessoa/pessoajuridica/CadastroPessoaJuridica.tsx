@@ -16,6 +16,7 @@ export const CadastroPessoaJuridica = () => {
     const location = useLocation();
 
     const { lista }: PessoaJuridicaProps = location?.state || null;
+    const alteracaoDeRegistro = (lista?.pessoaJuridicaId  ? lista?.pessoaJuridicaId > 0 : false);
 
 
     const cadastraEmpresa = (e: React.FormEvent) => {
@@ -92,6 +93,8 @@ export const CadastroPessoaJuridica = () => {
                        
                         <TextField id="pessoaCnpj" required defaultValue={formataCNPJ(lista?.pessoaCnpj)}
                             onKeyUp={() => validaCNPJ("pessoaCnpj")}
+                            
+                            disabled={alteracaoDeRegistro} 
 
                             label="Cnpj"
                             variant="outlined" InputLabelProps={{ shrink: true }}
@@ -100,7 +103,7 @@ export const CadastroPessoaJuridica = () => {
 
                         />
                        
-            <button onClick={buscaCnpj} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem", maxWidth: "11rem" }} type="button"   >BUSCA CNPJ</button>
+            <button onClick={buscaCnpj} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem", maxWidth: "11rem" }} type="button" disabled={alteracaoDeRegistro}   >BUSCA CNPJ</button>
                   </div>     
             <div className="formContainer">
                         <TextField id="pessoaNome" required defaultValue={lista?.pessoaNome}
@@ -112,7 +115,7 @@ export const CadastroPessoaJuridica = () => {
 
                         />
 
-                        <TextField id="pessoaNomeFantasia" required defaultValue={lista?.pessoaNomeFantasia}
+                        <TextField id="pessoaNomeFantasia" defaultValue={lista?.pessoaNomeFantasia}
 
                             label="Nome Fantasia"
                             variant="outlined" InputLabelProps={{ shrink: true }}
@@ -154,10 +157,19 @@ export const CadastroPessoaJuridica = () => {
                             sx={{ margin: "0.5rem" }}
 
                         />
+                                                <TextField id="pessoaFoneFixo" defaultValue={(lista?.pessoaFoneFixo)}
+                            onKeyUp={() => validaFoneFIxo("pessoaFoneFixo")}
+                            label="Fone Fixo"
+                            variant="outlined" InputLabelProps={{ shrink: true }}
+                            inputProps={{ maxLength: 14 }}
+                            sx={{ margin: "0.5rem" }}
+                            required
+
+                        />
 
 
 
-                        <TextField id="pessoaFoneCelular" required defaultValue={formataCelular(lista?.pessoaFoneCelular)}
+                        <TextField id="pessoaFoneCelular"  defaultValue={formataCelular(lista?.pessoaFoneCelular)}
                             onKeyUp={() => validaCelular("pessoaFoneCelular")}
                             label="Celular"
                             variant="outlined" InputLabelProps={{ shrink: true }}
@@ -166,14 +178,7 @@ export const CadastroPessoaJuridica = () => {
 
                         />
 
-                        <TextField id="pessoaFoneFixo" defaultValue={(lista?.pessoaFoneFixo)}
-                            onKeyUp={() => validaFoneFIxo("pessoaFoneFixo")}
-                            label="Fone Fixo"
-                            variant="outlined" InputLabelProps={{ shrink: true }}
-                            inputProps={{ maxLength: 14 }}
-                            sx={{ margin: "0.5rem" }}
 
-                        />
                         
 
                         <TextField id="pessoaCep" defaultValue={(lista?.pessoaCep)}

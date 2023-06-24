@@ -35,6 +35,8 @@ export interface PessoaFisicaModel {
   pessoaDtNascimento: string;
   pessoaDtNascForm: string;
 
+  pessoaComplemento:string;
+
   alteracao:any;
 }
 

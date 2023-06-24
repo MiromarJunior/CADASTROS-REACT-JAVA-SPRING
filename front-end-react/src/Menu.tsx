@@ -21,7 +21,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import { useNavigate } from 'react-router-dom';
 import { mostrarAlerta } from './services/utilServices';
-
+import StoreIcon from '@mui/icons-material/Store';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -126,12 +126,14 @@ export default function Menu({children}:ChildrenProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             MJ SOFTWARE
           </Typography>
+
           <IconButton style={{color:"white", float : "right"}} >
             <InboxIcon/>
           </IconButton>
+
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -141,9 +143,60 @@ export default function Menu({children}:ChildrenProps) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+    
+        <ListItem  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                  onClick={()=> navigate("/pessoaFisica")} >
+                  <AccountCircleIcon  /> 
+                 
+                </ListItemIcon>
+                <ListItemText primary={"Usuário(s)"} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                  onClick={()=> navigate("/pessoaJuridica")} >
+                  <StoreIcon  /> 
+                 
+                </ListItemIcon>
+                <ListItemText primary={"Empresa(s)"} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+      
+
+
+
+
+            
+
+        {/* <List>
           {['Usuário', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={text} disablePadding sx={{ display: 'flex',margin: "auto" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -191,7 +244,7 @@ export default function Menu({children}:ChildrenProps) {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

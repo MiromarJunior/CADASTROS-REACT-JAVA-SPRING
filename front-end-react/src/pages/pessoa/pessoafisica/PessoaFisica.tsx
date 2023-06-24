@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { deleteApiBack, getApiBack } from "../../services/crudService";
+import { deleteApiBack, getApiBack } from "../../../services/crudService";
 import { PessoaFisicaModel } from "./PessoaFisicaModel";
-import { ColumnTable, TableSimple } from "../../components/table/TableSimple";
-import { confirmaDel, dataBR, formataCelular } from "../../services/utilServices";
+import { ColumnTable, TableSimple } from "../../../components/table/TableSimple";
+import { confirmaDel, dataBR, formataCelular } from "../../../services/utilServices";
 
 
 
-import { ButtonDel, ButtonEdit } from "../../components/buttons/ButtonAction";
+import { ButtonDel, ButtonEdit } from "../../../components/buttons/ButtonAction";
 import { useNavigate } from "react-router-dom";
 
 
@@ -17,7 +17,7 @@ export const PessoaFisica = () =>{
     const [rows,setRows] = useState<PessoaFisicaModel[]>([]);
 
     const buscaPessoa = () =>{
-        getApiBack({},"pessoa",setRows).catch(error=>console.error(error));
+        getApiBack({},"pessoaFisica",setRows).catch(error=>console.error(error));
     }
 
     useEffect(()=>{
@@ -44,7 +44,7 @@ export const PessoaFisica = () =>{
     const deletePessoa = (pessoaId:number)=>{
         confirmaDel().then((response)=>{
             if(response.isConfirmed){
-                deleteApiBack(pessoaId,"pessoa").then((resp)=>{
+                deleteApiBack(pessoaId,"pessoaFisica").then((resp)=>{
                     if(resp === true){
                        buscaPessoa();
                     }

@@ -2,7 +2,7 @@ import { IconButton } from "@mui/material"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { PessoaFisicaModel } from "../../pages/pessoa/PessoaFisicaModel";
+
 
 interface ButtonDeleteProps{
     
@@ -11,8 +11,8 @@ interface ButtonDeleteProps{
 
 }
 interface ButtonEditProps {
-    updateFunction: (param: PessoaFisicaModel) => void;
-    updateParam: PessoaFisicaModel;
+    updateFunction: (param:any) => void;
+    updateParam: any;
   }
 
   interface ButtonAddProps {

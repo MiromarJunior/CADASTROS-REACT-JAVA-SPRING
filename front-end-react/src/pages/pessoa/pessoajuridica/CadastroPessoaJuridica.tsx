@@ -1,35 +1,37 @@
 import { Container, TextField } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { apenasNr, buscaCepOnline, createFormInput, dataInput, estadosBR, formataCPF, formataCelular, validaCPF, validaCelular } from "../../services/utilServices";
-import { PessoaFisicaModel } from "./PessoaFisicaModel";
-import { postApiBack, putApiBack } from "../../services/crudService";
+import { apenasNr, buscaCepOnline, buscaCnpjOnline, createFormInput, dataInput, estadosBR, formataCNPJ, formataCPF, formataCelular, validaCNPJ, validaCPF, validaCelular, validaFoneFIxo } from "../../../services/utilServices";
 
-interface PessoaFisicaProps {
-    lista: PessoaFisicaModel | null;
+import { postApiBack, putApiBack } from "../../../services/crudService";
+import { PessoaJuridicaModel } from "./PessoaJuridicaModel";
+
+
+interface PessoaJuridicaProps {
+    lista: PessoaJuridicaModel | null;
 
 }
 
-export const CadastroPessoaFisica = () => {
+export const CadastroPessoaJuridica = () => {
 
     const location = useLocation();
-  
-    const { lista }: PessoaFisicaProps = location?.state || null;
+
+    const { lista }: PessoaJuridicaProps = location?.state || null;
 
 
-    const cadastraUsuario = (e: React.FormEvent) => {
+    const cadastraEmpresa = (e: React.FormEvent) => {
         e.preventDefault();
-        const data = createFormInput("#formUsuario");
-        if (parseInt(data.pessoaFisicaId) > 0) {
-            putApiBack(parseInt(data.pessoaFisicaId), data, "pessoa").then((resp) => {              
+        const data = createFormInput("#formEmpresa");
+        if (parseInt(data.pessoaJuridicaId) > 0) {
+            putApiBack(parseInt(data.pessoaJuridicaId), data, "pessoaJuridica").then((resp) => {
                 if (resp === true) {
                     returnPage();
                     return null;
                 }
-            }).catch((error) => console.error(error));          
+            }).catch((error) => console.error(error));
             return null;
         }
 
-        postApiBack(data, "pessoa").then((resp) => {        
+        postApiBack(data, "pessoaJuridica").then((resp) => {
             if (resp === true) {
                 returnPage();
             }
@@ -54,25 +56,68 @@ export const CadastroPessoaFisica = () => {
         }).catch(error => console.error(error));
     }
 
-console.log(lista)
+    const buscaCnpj = () => {
+        buscaCnpjOnline({
+            idBairro: "pessoaBairro",
+            idCep: "pessoaCep",
+            idCidade: "pessoaCidade",
+            idLogradouro: "pessoaLogradouro",
+            idUF: "pessoaUf",
+            idCnpj: "pessoaCnpj",
+            idComplemento:"pessoaComplemento",
+            idLogradouroNr:"pessoaLogradouroNr",
+            idEmail:"pessoaEmail",
+            idRazaoSocial:"pessoaNome",
+            idNomeFantasia:"pessoaNomeFantasia",
+            idFoneFixo:"pessoaFoneFixo"
+
+
+        }).catch(error => console.error(error));
+    }
+
+    console.log(lista)
 
     return (
         <>
 
-            <h1 className="titulo" >CADASTRO DE USUÁRIO</h1>
+            <h1 className="titulo" >CADASTRO DE EMPRESA</h1>
 
 
             <Container>
-                <form onSubmit={cadastraUsuario} id="formUsuario"  >
+                <form onSubmit={cadastraEmpresa} id="formEmpresa"  >
+
 
                     <div className="formContainer">
-                        <input id="pessoaFisicaId" hidden defaultValue={lista?.pessoaFisicaId} />
+                        <input id="pessoaJuridicaId" hidden defaultValue={lista?.pessoaJuridicaId} />
+                       
+                        <TextField id="pessoaCnpj" required defaultValue={formataCNPJ(lista?.pessoaCnpj)}
+                            onKeyUp={() => validaCNPJ("pessoaCnpj")}
+
+                            label="Cnpj"
+                            variant="outlined" InputLabelProps={{ shrink: true }}
+                            inputProps={{ maxLength: 18 }}
+                            sx={{ margin: "0.5rem" }}
+
+                        />
+                       
+            <button onClick={buscaCnpj} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem", maxWidth: "11rem" }} type="button"   >BUSCA CNPJ</button>
+                  </div>     
+            <div className="formContainer">
                         <TextField id="pessoaNome" required defaultValue={lista?.pessoaNome}
 
-                            label="Nome"
+                            label="Razão Social"
                             variant="outlined" InputLabelProps={{ shrink: true }}
-                            inputProps={{ maxLength: 128 }}
-                            sx={{ margin: "0.5rem" }}
+                            inputProps={{ maxLength: 150 }}
+                            sx={{ margin: "0.5rem", minWidth:"46.5%" }}
+
+                        />
+
+                        <TextField id="pessoaNomeFantasia" required defaultValue={lista?.pessoaNomeFantasia}
+
+                            label="Nome Fantasia"
+                            variant="outlined" InputLabelProps={{ shrink: true }}
+                            inputProps={{ maxLength: 150 }}
+                            sx={{ margin: "0.5rem", minWidth:"45%" }}
 
                         />
 
@@ -86,25 +131,31 @@ console.log(lista)
 
                         />
 
-                        <TextField id="pessoaCpf" required defaultValue={formataCPF(lista?.pessoaCpf)}
-                            onKeyUp={() => validaCPF("pessoaCpf")}
 
-                            label="Cpf"
+
+
+
+
+                        <TextField id="pessoaIE" defaultValue={lista?.pessoaIE}
+                            onKeyUp={() => apenasNr("pessoaIE")}
+
+                            label="Inscrição Estadual"
                             variant="outlined" InputLabelProps={{ shrink: true }}
-                            inputProps={{ maxLength: 14 }}
+                            inputProps={{ maxLength: 20 }}
+                            sx={{ margin: "0.5rem" }}
+
+                        />
+                        <TextField id="pessoaIM" defaultValue={lista?.pessoaIM}
+                            onKeyUp={() => apenasNr("pessoaIM")}
+
+                            label="Inscrição Municipal"
+                            variant="outlined" InputLabelProps={{ shrink: true }}
+                            inputProps={{ maxLength: 20 }}
                             sx={{ margin: "0.5rem" }}
 
                         />
 
-                        <TextField id="pessoaDtNascimento" required defaultValue={lista?.pessoaDtNascimento}
 
-                            label="Data de Nascimento"
-                            type="date"
-                            variant="outlined" InputLabelProps={{ shrink: true }}
-                            inputProps={{ max: dataInput(new Date().toString()) }}
-                            sx={{ margin: "0.5rem" }}
-
-                        />
 
                         <TextField id="pessoaFoneCelular" required defaultValue={formataCelular(lista?.pessoaFoneCelular)}
                             onKeyUp={() => validaCelular("pessoaFoneCelular")}
@@ -116,14 +167,14 @@ console.log(lista)
                         />
 
                         <TextField id="pessoaFoneFixo" defaultValue={(lista?.pessoaFoneFixo)}
-                            onKeyUp={() => validaCelular("usroCelular2")}
-
+                            onKeyUp={() => validaFoneFIxo("pessoaFoneFixo")}
                             label="Fone Fixo"
                             variant="outlined" InputLabelProps={{ shrink: true }}
-                            inputProps={{ maxLength: 15 }}
+                            inputProps={{ maxLength: 14 }}
                             sx={{ margin: "0.5rem" }}
 
                         />
+                        
 
                         <TextField id="pessoaCep" defaultValue={(lista?.pessoaCep)}
 
@@ -134,11 +185,11 @@ console.log(lista)
                             sx={{ margin: "0.5rem" }}
 
                         />
-                       
-                        <button onClick={buscaCep} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem" ,maxWidth :"10rem"}} type="button"   >BUSCA CEP</button>
-                      
-                        </div>
-                        <div className="formContainer">
+
+                        {/* <button onClick={buscaCep} className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem", maxWidth: "10rem" }} type="button"   >BUSCA CEP</button> */}
+
+                    {/* </div>
+                    <div className="formContainer"> */}
 
                         <TextField id="pessoaLogradouro" defaultValue={lista?.pessoaLogradouro}
                             label="Logradouro"
@@ -158,15 +209,14 @@ console.log(lista)
                         />
 
 
-                        {/* <TextField id="usroComplemento" defaultValue={lista?.}
-                type="text"
-                size="small"
+                        <TextField id="pessoaComplemento" defaultValue={lista?.pessoaComplemento}
+                type="text"            
                 label="Complemento"
                 variant="outlined" InputLabelProps={{ shrink: true }}
                 inputProps={{ maxLength: 150 }}
-                sx={{ margin: "0.5rem", minWidth: "20rem" }}
+                sx={{ margin: "0.5rem" }}
 
-            /> */}
+            />
 
                         <TextField id="pessoaBairro" defaultValue={lista?.pessoaBairro}
                             type="text"
@@ -204,7 +254,7 @@ console.log(lista)
 
 
                     <div>
-                        <button className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem" }} type="submit" form="formUsuario"  >SALVAR</button>
+                        <button className="btn btn-outline-primary btn-sm" style={{ margin: "0.5rem" }} type="submit" form="formEmpresa"  >SALVAR</button>
 
                         <button className="btn btn-outline-danger btn-sm" type="button" onClick={returnPage} >VOLTAR</button>
 
